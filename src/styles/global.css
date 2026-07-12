@@ -49,34 +49,33 @@ html[data-theme="light"],
 html[data-theme="day"] {
   color-scheme: light;
 
-  --bg-main: #eef8f7;
-  --bg-secondary: #f6fbfa;
-  --bg-tertiary: #fff7ef;
+  --bg-main: #f3fbf8;
+  --bg-secondary: #fbfdfb;
+  --bg-tertiary: #fff7ee;
 
-  --bg-gradient-1: rgba(195, 244, 226, 0.78);
-  --bg-gradient-2: rgba(221, 224, 255, 0.62);
-  --bg-gradient-3: rgba(255, 240, 208, 0.58);
+  --bg-gradient-1: rgba(177, 238, 218, 0.56);
+  --bg-gradient-2: rgba(215, 226, 255, 0.42);
+  --bg-gradient-3: rgba(255, 226, 178, 0.38);
 
-  --card-bg: rgba(255, 255, 255, 0.76);
-  --card-bg-strong: rgba(255, 255, 255, 0.9);
-  --surface: rgba(255, 251, 246, 0.88);
-  --surface-soft: rgba(255, 255, 255, 0.92);
-  --surface-strong: rgba(255, 249, 243, 0.96);
+  --card-bg: rgba(255, 255, 255, 0.82);
+  --card-bg-strong: rgba(255, 253, 248, 0.94);
+  --surface: rgba(255, 252, 247, 0.9);
+  --surface-soft: rgba(255, 255, 255, 0.94);
+  --surface-strong: rgba(255, 249, 241, 0.98);
 
-  --text-main: #263238;
-  --text-muted: #65727d;
-  --text-soft: #66584d;
-  --text-faint: #95857a;
+  --text-main: #26343a;
+  --text-muted: #65747a;
+  --text-soft: #5f625a;
+  --text-faint: #9a8d7e;
 
-  --accent: #dba457;
-  --accent-strong: #c98f3f;
-  --accent-2: #7b8cff;
+  --accent: #cfa66a;
+--accent-strong: #b7894e;
+  --accent-2: #7891df;
 
-  --border: rgba(63, 52, 42, 0.08);
-  --shadow: 0 24px 70px rgba(88, 120, 140, 0.16);
-  --shadow-soft: 0 18px 48px rgba(182, 160, 136, 0.18);
+  --border: rgba(83, 75, 64, 0.1);
+  --shadow: 0 24px 68px rgba(119, 145, 140, 0.16);
+  --shadow-soft: 0 16px 42px rgba(145, 132, 112, 0.14);
 }
-
 /* -----------------------------
    Base
 ----------------------------- */
@@ -166,6 +165,12 @@ html[data-theme="night"] .page-bg::before {
   background: radial-gradient(circle, rgba(255, 209, 138, 0.16), transparent 68%);
   pointer-events: none;
   filter: blur(6px);
+}
+
+html[data-theme="light"] .page-bg::after,
+html[data-theme="day"] .page-bg::after {
+  background: radial-gradient(circle, rgba(255, 210, 145, 0.18), transparent 68%);
+  filter: blur(10px);
 }
 
 .container {
