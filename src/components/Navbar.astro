@@ -1,24 +1,36 @@
 ---
+const base = import.meta.env.BASE_URL;
+
 const navItems = [
-  { name: "Home", href: "/" },
-  { name: "About", href: "/about" },
-  { name: "Research", href: "/research" },
-  { name: "Bioinformatics", href: "/bioinformatics" },
-  { name: "Photography", href: "/photography" },
-  { name: "Learning", href: "/learning" },
+  { name: "Home", href: "" },
+  { name: "About", href: "about" },
+  { name: "Research", href: "research" },
+  { name: "Bioinformatics", href: "bioinformatics" },
+  { name: "Photography", href: "photography" },
+  { name: "Learning", href: "learning" },
 ];
 
-const currentPath = Astro.url.pathname.replace(/\/$/, "") || "/";
+const currentPath = Astro.url.pathname;
 
-function isActive(href: string) {
-  if (href === "/") return currentPath === "/";
-  return currentPath.startsWith(href);
+function withBase(path: string) {
+  if (!path) return base;
+  return `${base}${path}/`;
+}
+
+function isActive(path: string) {
+  const target = withBase(path);
+
+  if (!path) {
+    return currentPath === base || currentPath === base.replace(/\/$/, "");
+  }
+
+  return currentPath.startsWith(target);
 }
 ---
 
 <nav class="navbar">
   {navItems.map((item) => (
-    <a href={item.href} class={isActive(item.href) ? "active" : ""}>
+    <a href={withBase(item.href)} class={isActive(item.href) ? "active" : ""}>
       {item.name}
     </a>
   ))}

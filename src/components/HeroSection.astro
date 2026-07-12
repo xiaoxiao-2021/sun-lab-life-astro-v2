@@ -1,5 +1,8 @@
 ---
 import DeskPanel from "./DeskPanel.astro";
+import CurrentFocus from "./CurrentFocus.astro";
+
+const base = import.meta.env.BASE_URL;
 ---
 
 <main class="hero-section">
@@ -10,6 +13,10 @@ import DeskPanel from "./DeskPanel.astro";
 
     <p class="hero-subtitle">
       一个医学科研人的数字小窝。
+    </p>
+
+    <p class="hero-subline">
+      A quiet space for medicine, research, bioinformatics, photography, and becoming myself.
     </p>
 
     <p class="hero-text">
@@ -26,9 +33,11 @@ import DeskPanel from "./DeskPanel.astro";
     </div>
 
     <div class="hero-actions">
-      <a href="/research" class="primary-btn">Enter Research</a>
-      <a href="/bioinformatics" class="secondary-btn">View Workflow</a>
+      <a href={`${base}research/`} class="primary-btn">Enter Research</a>
+      <a href={`${base}bioinformatics/`} class="secondary-btn">View Workflow</a>
     </div>
+
+    <CurrentFocus />
   </section>
 
   <DeskPanel />

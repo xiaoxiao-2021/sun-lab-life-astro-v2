@@ -1,0 +1,21 @@
+---
+import { focusItems } from "../data/focus";
+---
+
+<div class="current-focus">
+  <div class="current-focus-head">
+    <span>Current Focus</span>
+
+    <strong class="mode-day-only">Today I am building.</strong>
+    <strong class="mode-night-only">Tonight I am reflecting.</strong>
+  </div>
+
+  <div class="focus-grid">
+    {focusItems.map((item) => (
+      <div class="focus-item">
+        <span>{item.label}</span>
+        <strong>{item.value}</strong>
+      </div>
+    ))}
+  </div>
+</div>

@@ -919,3 +919,318 @@ html[data-theme="day"] .lamp-svg-night {
     font-size: 0.82rem;
   }
 }
+/* ============================================================
+   Homepage v0.3 Enhancements
+   ============================================================ */
+
+/* Day / Night conditional content */
+
+.mode-day-only {
+  display: none;
+}
+
+.mode-night-only {
+  display: inline;
+}
+
+html[data-theme="light"] .mode-day-only,
+html[data-theme="day"] .mode-day-only {
+  display: inline;
+}
+
+html[data-theme="light"] .mode-night-only,
+html[data-theme="day"] .mode-night-only {
+  display: none;
+}
+
+/* Hero subline */
+
+.hero-subline {
+  margin: 10px 0 0;
+  color: var(--accent);
+  font-size: 14px;
+  font-weight: 800;
+  line-height: 1.7;
+}
+
+/* Current Focus */
+
+.current-focus {
+  margin-top: 30px;
+  padding: 18px;
+  border-radius: 24px;
+  background:
+    linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--accent) 10%, transparent),
+      color-mix(in srgb, var(--accent-2) 8%, transparent)
+    ),
+    var(--card-bg-strong);
+  border: 1px solid var(--border);
+}
+
+.current-focus-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.current-focus-head span {
+  color: var(--text-muted);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.current-focus-head strong {
+  color: var(--accent);
+  font-size: 14px;
+}
+
+.focus-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.focus-item {
+  padding: 12px;
+  border-radius: 18px;
+  background: color-mix(in srgb, var(--card-bg-strong) 82%, transparent);
+  border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
+}
+
+.focus-item span {
+  display: block;
+  color: var(--text-muted);
+  font-size: 12px;
+  font-weight: 800;
+  margin-bottom: 5px;
+}
+
+.focus-item strong {
+  color: var(--text-main);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+/* Module card as entrance */
+
+.module-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.module-card::after {
+  content: "";
+  position: absolute;
+  right: -40px;
+  top: -40px;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: radial-gradient(circle, color-mix(in srgb, var(--accent) 14%, transparent), transparent 68%);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.module-card:hover::after {
+  opacity: 1;
+}
+
+.module-cta {
+  margin-top: 22px;
+  color: var(--accent);
+  font-size: 13px;
+  font-weight: 900;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.module-cta span {
+  transition: transform 0.25s ease;
+}
+
+.module-card:hover .module-cta span {
+  transform: translateX(4px);
+}
+
+/* Lamp mood text */
+
+.lamp-state {
+  margin-top: 2px;
+  color: var(--accent);
+  font-size: 0.78rem;
+  line-height: 1.45;
+}
+
+/* Timeline recent notes */
+
+.timeline-card {
+  padding: 24px;
+}
+
+.timeline-list {
+  max-height: 250px;
+  overflow-y: auto;
+  padding-right: 8px;
+  position: relative;
+}
+
+.timeline-item {
+  position: relative;
+  display: grid;
+  grid-template-columns: 22px 1fr;
+  gap: 12px;
+  padding: 0 0 20px;
+}
+
+.timeline-item:not(:last-child)::before {
+  content: "";
+  position: absolute;
+  left: 7px;
+  top: 18px;
+  bottom: 0;
+  width: 1px;
+  background: color-mix(in srgb, var(--text-muted) 22%, transparent);
+}
+
+.timeline-dot {
+  width: 15px;
+  height: 15px;
+  margin-top: 5px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 5px color-mix(in srgb, var(--accent) 14%, transparent);
+  z-index: 1;
+}
+
+.timeline-content {
+  padding: 14px 16px;
+  border-radius: 20px;
+  background: color-mix(in srgb, var(--card-bg-strong) 86%, transparent);
+  border: 1px solid var(--border);
+  transition:
+    transform 0.25s ease,
+    border-color 0.25s ease,
+    background 0.25s ease;
+}
+
+.timeline-item:hover .timeline-content {
+  transform: translateY(-2px);
+  border-color: color-mix(in srgb, var(--accent) 32%, var(--border));
+}
+
+.timeline-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.timeline-meta span {
+  color: var(--text-muted);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.timeline-meta em {
+  font-style: normal;
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.timeline-content p {
+  margin: 0;
+  color: var(--text-main);
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+/* Page skeleton */
+
+.page-hero {
+  margin-top: 28px;
+  padding: 46px;
+  border-radius: 34px;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(22px);
+}
+
+.page-hero h1 {
+  margin: 0;
+  font-size: clamp(42px, 6vw, 70px);
+  line-height: 1;
+  letter-spacing: -0.055em;
+}
+
+.page-hero p:last-child {
+  max-width: 720px;
+  margin: 20px 0 0;
+  color: var(--text-muted);
+  font-size: 17px;
+  line-height: 1.9;
+}
+
+.content-grid {
+  margin-top: 28px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+
+.info-card {
+  min-height: 220px;
+  padding: 26px;
+  border-radius: 28px;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-soft);
+  backdrop-filter: blur(18px);
+}
+
+.info-card h2 {
+  margin: 0 0 14px;
+  font-size: 24px;
+  letter-spacing: -0.03em;
+}
+
+.info-card p {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 15px;
+  line-height: 1.8;
+}
+
+/* Responsive for v0.3 */
+
+@media (max-width: 760px) {
+  .focus-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .current-focus-head {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .content-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .page-hero {
+    padding: 34px 24px;
+    border-radius: 28px;
+  }
+
+  .info-card {
+    min-height: auto;
+  }
+}

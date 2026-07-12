@@ -1,0 +1,37 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="Bioinformatics | Sun's Lab & Life">
+  <section class="page-hero">
+    <p class="eyebrow">Bioinformatics Workflow</p>
+    <h1>R & Bioinformatics Notes</h1>
+    <p>
+      这里整理我的生信武器库：差异分析、ssGSEA、Spearman 相关分析、
+      可视化、debug 和可复用流程。
+    </p>
+  </section>
+
+  <section class="content-grid">
+    <div class="info-card">
+      <h2>DEG Analysis</h2>
+      <p>
+        bulk RNA-seq / microarray 差异分析流程、分组设计和结果整理。
+      </p>
+    </div>
+
+    <div class="info-card">
+      <h2>ssGSEA Scoring</h2>
+      <p>
+        免疫相关 signature 单样本打分、组间比较和可视化。
+      </p>
+    </div>
+
+    <div class="info-card">
+      <h2>Spearman Workflow</h2>
+      <p>
+        基因表达和评分之间的相关性分析、四象限筛选和自动化输出。
+      </p>
+    </div>
+  </section>
+</BaseLayout>

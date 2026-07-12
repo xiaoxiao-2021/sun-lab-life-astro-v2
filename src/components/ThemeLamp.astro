@@ -42,6 +42,7 @@
       <span class="lamp-kicker">Theme Lamp</span>
       <strong id="lamp-mode">Night Mode</strong>
       <span id="lamp-hint">点击进入白天</span>
+      <span id="lamp-state" class="lamp-state">A quiet night for thinking.</span>
     </div>
   </button>
 </div>
@@ -54,6 +55,7 @@
     const toggle = document.getElementById("theme-toggle");
     const lampMode = document.getElementById("lamp-mode");
     const lampHint = document.getElementById("lamp-hint");
+    const lampState = document.getElementById("lamp-state");
 
     if (!toggle || !lampMode || !lampHint) return;
 
@@ -64,9 +66,17 @@
       if (theme === "light") {
         lampMode.textContent = "Day Mode";
         lampHint.textContent = "点击进入夜晚";
+
+        if (lampState) {
+          lampState.textContent = "A clear day for building.";
+        }
       } else {
         lampMode.textContent = "Night Mode";
         lampHint.textContent = "点击进入白天";
+
+        if (lampState) {
+          lampState.textContent = "A quiet night for thinking.";
+        }
       }
     };
 
@@ -78,7 +88,8 @@
 
     toggle.addEventListener("click", () => {
       const current = root.dataset.theme;
-      applyTheme(current === "dark" ? "light" : "dark");
+      const nextTheme = current === "dark" ? "light" : "dark";
+      applyTheme(nextTheme);
     });
   }
 

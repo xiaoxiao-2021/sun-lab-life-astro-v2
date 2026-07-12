@@ -1,5 +1,11 @@
 ---
 import { paths } from "../data/paths";
+
+const base = import.meta.env.BASE_URL;
+
+function withBase(path: string) {
+  return `${base}${path.replace(/^\/+/, "")}/`;
+}
 ---
 
 <section class="module-section">
@@ -10,13 +16,18 @@ import { paths } from "../data/paths";
 
   <div class="module-grid">
     {paths.map((path) => (
-      <a href={path.href} class="module-card">
+      <a href={withBase(path.href)} class="module-card">
         <span class="module-icon">{path.icon}</span>
 
         <div>
           <h3>{path.title}</h3>
           <p>{path.desc}</p>
         </div>
+
+        <span class="module-cta">
+          {path.cta}
+          <span>→</span>
+        </span>
       </a>
     ))}
   </div>
