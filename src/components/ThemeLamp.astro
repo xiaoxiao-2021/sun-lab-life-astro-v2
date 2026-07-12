@@ -1,20 +1,42 @@
----
-const base = import.meta.env.BASE_URL;
-
-const lampDay = `${base}images/lamp-day.svg`;
-const lampNight = `${base}images/lamp-night.svg`;
----
-
 <div class="lamp-card">
   <button class="lamp-toggle" id="theme-toggle" type="button" aria-label="切换白天与夜晚主题">
-    <img
-      id="lamp-image"
-      class="lamp-image"
-      src={lampNight}
-      data-day-src={lampDay}
-      data-night-src={lampNight}
-      alt="台灯主题切换器"
-    />
+    <div class="lamp-art" aria-hidden="true">
+      <!-- 白天未亮台灯 -->
+      <svg class="lamp-svg lamp-svg-day" width="180" height="120" viewBox="0 0 180 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="90" cy="108" rx="46" ry="7" fill="#D8D2C8" opacity="0.55"/>
+        <rect x="66" y="96" width="50" height="8" rx="4" fill="#B7B2AA"/>
+        <rect x="76" y="87" width="32" height="11" rx="5.5" fill="#C7C1B8"/>
+        <rect x="88" y="52" width="7" height="38" rx="3.5" fill="#98938C"/>
+        <circle cx="91" cy="50" r="6" fill="#A8A39B"/>
+        <path d="M91 49L65 30" stroke="#9E988F" stroke-width="7" stroke-linecap="round"/>
+        <circle cx="64" cy="30" r="6" fill="#AAA49B"/>
+        <path d="M44 28C44 17.5 52.5 9 63 9H86C96.5 9 105 17.5 105 28V31H44V28Z" fill="#D8B06D"/>
+        <path d="M49 31H100C96 42 86 50 74 50C62 50 53 42 49 31Z" fill="#F0D39D"/>
+        <rect x="71" y="9" width="7" height="14" rx="3.5" fill="#C99952"/>
+        <circle cx="126" cy="24" r="3.5" fill="#D6D1C8"/>
+        <circle cx="138" cy="35" r="2.5" fill="#D6D1C8" opacity="0.85"/>
+        <circle cx="130" cy="48" r="2" fill="#D6D1C8" opacity="0.65"/>
+      </svg>
+
+      <!-- 夜晚亮灯台灯 -->
+      <svg class="lamp-svg lamp-svg-night" width="180" height="120" viewBox="0 0 180 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="90" cy="108" rx="50" ry="8" fill="#84A7FF" opacity="0.18"/>
+        <ellipse cx="74" cy="56" rx="48" ry="36" fill="#FFD98C" opacity="0.28"/>
+        <ellipse cx="74" cy="56" rx="34" ry="24" fill="#FFE8B8" opacity="0.38"/>
+        <rect x="66" y="96" width="50" height="8" rx="4" fill="#B9C4DD"/>
+        <rect x="76" y="87" width="32" height="11" rx="5.5" fill="#CCD5E9"/>
+        <rect x="88" y="52" width="7" height="38" rx="3.5" fill="#D7DFF1"/>
+        <circle cx="91" cy="50" r="6" fill="#E1E8F6"/>
+        <path d="M91 49L65 30" stroke="#DCE4F6" stroke-width="7" stroke-linecap="round"/>
+        <circle cx="64" cy="30" r="6" fill="#E5ECFA"/>
+        <path d="M44 28C44 17.5 52.5 9 63 9H86C96.5 9 105 17.5 105 28V31H44V28Z" fill="#E8C374"/>
+        <path d="M49 31H100C96 42 86 50 74 50C62 50 53 42 49 31Z" fill="#FFE3A6"/>
+        <rect x="71" y="9" width="7" height="14" rx="3.5" fill="#D5A85B"/>
+        <circle cx="126" cy="24" r="3.5" fill="#E7EDF8"/>
+        <circle cx="138" cy="35" r="2.5" fill="#D8E4FF" opacity="0.9"/>
+        <circle cx="130" cy="48" r="2" fill="#D8E4FF" opacity="0.7"/>
+      </svg>
+    </div>
 
     <div class="lamp-copy">
       <span class="lamp-kicker">Theme Lamp</span>
@@ -24,31 +46,25 @@ const lampNight = `${base}images/lamp-night.svg`;
   </button>
 </div>
 
-<script>
+<script is:inline>
   const STORAGE_KEY = "sun-theme";
 
   function initThemeLamp() {
     const root = document.documentElement;
     const toggle = document.getElementById("theme-toggle");
-    const lampImage = document.getElementById("lamp-image");
     const lampMode = document.getElementById("lamp-mode");
     const lampHint = document.getElementById("lamp-hint");
 
-    if (!toggle || !lampImage || !lampMode || !lampHint) return;
-
-    const daySrc = lampImage.dataset.daySrc;
-    const nightSrc = lampImage.dataset.nightSrc;
+    if (!toggle || !lampMode || !lampHint) return;
 
     const applyTheme = (theme) => {
       root.dataset.theme = theme;
       localStorage.setItem(STORAGE_KEY, theme);
 
       if (theme === "light") {
-        lampImage.setAttribute("src", daySrc);
         lampMode.textContent = "Day Mode";
         lampHint.textContent = "点击进入夜晚";
       } else {
-        lampImage.setAttribute("src", nightSrc);
         lampMode.textContent = "Night Mode";
         lampHint.textContent = "点击进入白天";
       }
@@ -62,11 +78,9 @@ const lampNight = `${base}images/lamp-night.svg`;
 
     toggle.addEventListener("click", () => {
       const current = root.dataset.theme;
-      const next = current === "dark" ? "light" : "dark";
-      applyTheme(next);
+      applyTheme(current === "dark" ? "light" : "dark");
     });
   }
 
   initThemeLamp();
-  document.addEventListener("astro:after-swap", initThemeLamp);
 </script>

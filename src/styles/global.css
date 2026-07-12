@@ -777,3 +777,140 @@ h1 {
     gap: 4px;
   }
 }
+/* ============================================================
+   Inline SVG Theme Lamp Fix
+   这一段用于替换图片路径版本，避免 public/images 路径出错
+   ============================================================ */
+
+.lamp-card {
+  background: var(--card-bg-strong);
+  border: 1px solid var(--border);
+  border-radius: 26px;
+  box-shadow: var(--shadow-soft);
+  overflow: hidden;
+}
+
+.lamp-toggle {
+  width: 100%;
+  min-height: 138px;
+  border: none;
+  background:
+    radial-gradient(circle at 28% 42%, color-mix(in srgb, var(--accent) 22%, transparent), transparent 38%),
+    transparent;
+  padding: 16px 18px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  cursor: pointer;
+  color: inherit;
+  text-align: left;
+  transition:
+    background 0.3s ease,
+    transform 0.25s ease;
+}
+
+.lamp-toggle:hover {
+  transform: translateY(-2px);
+  background:
+    radial-gradient(circle at 28% 42%, color-mix(in srgb, var(--accent) 28%, transparent), transparent 42%),
+    color-mix(in srgb, var(--accent) 4%, transparent);
+}
+
+.lamp-art {
+  width: 132px;
+  max-width: 46%;
+  height: 92px;
+  position: relative;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.18));
+}
+
+.lamp-svg {
+  position: absolute;
+  width: 132px;
+  height: auto;
+  transition:
+    opacity 0.35s ease,
+    transform 0.35s ease,
+    filter 0.35s ease;
+}
+
+.lamp-svg-day {
+  opacity: 0;
+  transform: translateY(3px) scale(0.96);
+}
+
+.lamp-svg-night {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+html[data-theme="light"] .lamp-svg-day,
+html[data-theme="day"] .lamp-svg-day {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+html[data-theme="light"] .lamp-svg-night,
+html[data-theme="day"] .lamp-svg-night {
+  opacity: 0;
+  transform: translateY(3px) scale(0.96);
+}
+
+.lamp-toggle:hover .lamp-svg {
+  transform: translateY(-2px) scale(1.02);
+}
+
+.lamp-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  min-width: 0;
+}
+
+.lamp-kicker {
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+.lamp-copy strong {
+  font-size: 1rem;
+  color: var(--text-main);
+}
+
+.lamp-copy span:last-child {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+@media (max-width: 640px) {
+  .lamp-toggle {
+    min-height: 122px;
+    padding: 16px;
+    gap: 12px;
+  }
+
+  .lamp-art {
+    width: 104px;
+    height: 80px;
+    max-width: 38%;
+  }
+
+  .lamp-svg {
+    width: 104px;
+  }
+
+  .lamp-copy strong {
+    font-size: 0.95rem;
+  }
+
+  .lamp-copy span:last-child {
+    font-size: 0.82rem;
+  }
+}
