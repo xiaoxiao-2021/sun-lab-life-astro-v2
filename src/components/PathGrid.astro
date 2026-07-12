@@ -1,0 +1,23 @@
+---
+import { paths } from "../data/paths";
+---
+
+<section class="module-section">
+  <div class="section-heading">
+    <p>Four Main Paths</p>
+    <h2>My Lab & Life Map</h2>
+  </div>
+
+  <div class="module-grid">
+    {paths.map((path) => (
+      <a href={path.href} class="module-card">
+        <span class="module-icon">{path.icon}</span>
+
+        <div>
+          <h3>{path.title}</h3>
+          <p>{path.desc}</p>
+        </div>
+      </a>
+    ))}
+  </div>
+</section>

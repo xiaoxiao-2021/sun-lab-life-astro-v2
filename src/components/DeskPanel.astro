@@ -1,0 +1,158 @@
+---
+import { socials } from "../data/socials";
+---
+
+<aside class="desk-panel">
+  <!-- 台灯开关 -->
+  <button class="lamp-toggle" id="lampToggle" aria-label="Toggle theme">
+    <div class="lamp-light-cone"></div>
+
+    <div class="lamp-body">
+      <div class="lamp-head">
+        <div class="lamp-bulb"></div>
+      </div>
+
+      <div class="lamp-arm arm-one"></div>
+      <div class="lamp-joint joint-one"></div>
+      <div class="lamp-arm arm-two"></div>
+      <div class="lamp-joint joint-two"></div>
+      <div class="lamp-stand"></div>
+      <div class="lamp-foot"></div>
+    </div>
+
+    <span class="lamp-label" id="lampLabel">Day Mode</span>
+  </button>
+
+  <!-- 时钟 -->
+  <div class="widget clock-widget">
+    <div class="widget-title">🕒 Clock</div>
+    <div class="clock-time" id="clock">--:--:--</div>
+    <div class="clock-date" id="todayText">Loading...</div>
+  </div>
+
+  <!-- 日历 -->
+  <div class="widget calendar-widget">
+    <div class="widget-title">📅 Calendar</div>
+    <div class="calendar-title" id="calendarTitle">Loading...</div>
+
+    <div class="calendar-weekdays">
+      <span>一</span>
+      <span>二</span>
+      <span>三</span>
+      <span>四</span>
+      <span>五</span>
+      <span>六</span>
+      <span>日</span>
+    </div>
+
+    <div class="calendar-days" id="calendarDays"></div>
+  </div>
+
+  <!-- 社交链接 -->
+  <div class="widget social-widget">
+    <div class="widget-title">🌐 Find Me</div>
+
+    <div class="social-links">
+      {socials.map((item) => (
+        <a href={item.href} target="_blank" rel="noreferrer">
+          {item.name}
+        </a>
+      ))}
+    </div>
+  </div>
+</aside>
+
+<script is:inline>
+  const root = document.documentElement;
+  const lampToggle = document.getElementById("lampToggle");
+  const lampLabel = document.getElementById("lampLabel");
+  const clock = document.getElementById("clock");
+  const todayText = document.getElementById("todayText");
+  const calendarTitle = document.getElementById("calendarTitle");
+  const calendarDays = document.getElementById("calendarDays");
+
+  function applyTheme(theme) {
+    root.setAttribute("data-theme", theme);
+    localStorage.setItem("sun-theme", theme);
+
+    if (lampLabel) {
+      lampLabel.textContent = theme === "night" ? "Night Mode" : "Day Mode";
+    }
+  }
+
+  const savedTheme = localStorage.getItem("sun-theme");
+  const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+  applyTheme(savedTheme || (prefersDark ? "night" : "day"));
+
+  if (lampToggle) {
+    lampToggle.addEventListener("click", () => {
+      const current = root.getAttribute("data-theme");
+      applyTheme(current === "night" ? "day" : "night");
+    });
+  }
+
+  function updateClock() {
+    const now = new Date();
+
+    const time = now.toLocaleTimeString("zh-CN", {
+      hour12: false,
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+    });
+
+    const date = now.toLocaleDateString("zh-CN", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      weekday: "long",
+    });
+
+    if (clock) clock.textContent = time;
+    if (todayText) todayText.textContent = date;
+  }
+
+  function renderCalendar() {
+    if (!calendarTitle || !calendarDays) return;
+
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = now.getMonth();
+    const today = now.getDate();
+
+    calendarTitle.textContent = `${year}年${month + 1}月`;
+
+    const firstDay = new Date(year, month, 1);
+    const lastDay = new Date(year, month + 1, 0);
+    const totalDays = lastDay.getDate();
+
+    let startWeekday = firstDay.getDay();
+    startWeekday = startWeekday === 0 ? 7 : startWeekday;
+
+    calendarDays.innerHTML = "";
+
+    for (let i = 1; i < startWeekday; i++) {
+      const empty = document.createElement("div");
+      empty.className = "calendar-day empty";
+      empty.textContent = ".";
+      calendarDays.appendChild(empty);
+    }
+
+    for (let day = 1; day <= totalDays; day++) {
+      const dayEl = document.createElement("div");
+      dayEl.className = "calendar-day";
+      dayEl.textContent = day;
+
+      if (day === today) {
+        dayEl.classList.add("today");
+      }
+
+      calendarDays.appendChild(dayEl);
+    }
+  }
+
+  updateClock();
+  renderCalendar();
+  setInterval(updateClock, 1000);
+</script>

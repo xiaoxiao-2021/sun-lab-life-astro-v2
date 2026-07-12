@@ -1,0 +1,29 @@
+---
+import "../styles/global.css";
+import Navbar from "../components/Navbar.astro";
+
+const { title = "Sun's Lab & Life" } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="day">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+  </head>
+
+  <body>
+    <div class="page-bg">
+      <div class="container">
+        <Navbar />
+
+        <slot />
+
+        <footer class="footer">
+          © 2026 Sun · Becoming stronger, warmer, and clearer.
+        </footer>
+      </div>
+    </div>
+  </body>
+</html>

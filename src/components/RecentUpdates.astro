@@ -1,0 +1,21 @@
+---
+import { updates } from "../data/updates";
+---
+
+<section class="updates-section">
+  <div class="section-heading">
+    <p>Recent Notes</p>
+    <h2>What Changed Recently</h2>
+  </div>
+
+  <div class="updates-card">
+    <div class="updates-list">
+      {updates.map((item) => (
+        <div class="update-item">
+          <span>{item.date}</span>
+          <a href={item.href}>{item.text}</a>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
