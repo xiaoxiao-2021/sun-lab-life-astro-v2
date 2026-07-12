@@ -1,0 +1,72 @@
+---
+const base = import.meta.env.BASE_URL;
+
+const lampDay = `${base}images/lamp-day.svg`;
+const lampNight = `${base}images/lamp-night.svg`;
+---
+
+<div class="lamp-card">
+  <button class="lamp-toggle" id="theme-toggle" type="button" aria-label="切换白天与夜晚主题">
+    <img
+      id="lamp-image"
+      class="lamp-image"
+      src={lampNight}
+      data-day-src={lampDay}
+      data-night-src={lampNight}
+      alt="台灯主题切换器"
+    />
+
+    <div class="lamp-copy">
+      <span class="lamp-kicker">Theme Lamp</span>
+      <strong id="lamp-mode">Night Mode</strong>
+      <span id="lamp-hint">点击进入白天</span>
+    </div>
+  </button>
+</div>
+
+<script>
+  const STORAGE_KEY = "sun-theme";
+
+  function initThemeLamp() {
+    const root = document.documentElement;
+    const toggle = document.getElementById("theme-toggle");
+    const lampImage = document.getElementById("lamp-image");
+    const lampMode = document.getElementById("lamp-mode");
+    const lampHint = document.getElementById("lamp-hint");
+
+    if (!toggle || !lampImage || !lampMode || !lampHint) return;
+
+    const daySrc = lampImage.dataset.daySrc;
+    const nightSrc = lampImage.dataset.nightSrc;
+
+    const applyTheme = (theme) => {
+      root.dataset.theme = theme;
+      localStorage.setItem(STORAGE_KEY, theme);
+
+      if (theme === "light") {
+        lampImage.setAttribute("src", daySrc);
+        lampMode.textContent = "Day Mode";
+        lampHint.textContent = "点击进入夜晚";
+      } else {
+        lampImage.setAttribute("src", nightSrc);
+        lampMode.textContent = "Night Mode";
+        lampHint.textContent = "点击进入白天";
+      }
+    };
+
+    const savedTheme = localStorage.getItem(STORAGE_KEY);
+    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    const initialTheme = savedTheme || (prefersDark ? "dark" : "light");
+
+    applyTheme(initialTheme);
+
+    toggle.addEventListener("click", () => {
+      const current = root.dataset.theme;
+      const next = current === "dark" ? "light" : "dark";
+      applyTheme(next);
+    });
+  }
+
+  initThemeLamp();
+  document.addEventListener("astro:after-swap", initThemeLamp);
+</script>

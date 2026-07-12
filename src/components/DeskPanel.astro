@@ -1,27 +1,10 @@
 ---
+import ThemeLamp from "./ThemeLamp.astro";
 import { socials } from "../data/socials";
 ---
 
 <aside class="desk-panel">
-  <!-- 台灯开关 -->
-  <button class="lamp-toggle" id="lampToggle" aria-label="Toggle theme">
-    <div class="lamp-light-cone"></div>
-
-    <div class="lamp-body">
-      <div class="lamp-head">
-        <div class="lamp-bulb"></div>
-      </div>
-
-      <div class="lamp-arm arm-one"></div>
-      <div class="lamp-joint joint-one"></div>
-      <div class="lamp-arm arm-two"></div>
-      <div class="lamp-joint joint-two"></div>
-      <div class="lamp-stand"></div>
-      <div class="lamp-foot"></div>
-    </div>
-
-    <span class="lamp-label" id="lampLabel">Day Mode</span>
-  </button>
+  <ThemeLamp />
 
   <!-- 时钟 -->
   <div class="widget clock-widget">
@@ -63,34 +46,10 @@ import { socials } from "../data/socials";
 </aside>
 
 <script is:inline>
-  const root = document.documentElement;
-  const lampToggle = document.getElementById("lampToggle");
-  const lampLabel = document.getElementById("lampLabel");
   const clock = document.getElementById("clock");
   const todayText = document.getElementById("todayText");
   const calendarTitle = document.getElementById("calendarTitle");
   const calendarDays = document.getElementById("calendarDays");
-
-  function applyTheme(theme) {
-    root.setAttribute("data-theme", theme);
-    localStorage.setItem("sun-theme", theme);
-
-    if (lampLabel) {
-      lampLabel.textContent = theme === "night" ? "Night Mode" : "Day Mode";
-    }
-  }
-
-  const savedTheme = localStorage.getItem("sun-theme");
-  const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-
-  applyTheme(savedTheme || (prefersDark ? "night" : "day"));
-
-  if (lampToggle) {
-    lampToggle.addEventListener("click", () => {
-      const current = root.getAttribute("data-theme");
-      applyTheme(current === "night" ? "day" : "night");
-    });
-  }
 
   function updateClock() {
     const now = new Date();
