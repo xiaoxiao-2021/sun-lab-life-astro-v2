@@ -12,16 +12,23 @@ const navItems = [
 
 const currentPath = Astro.url.pathname;
 
+function normalizeBase(basePath: string) {
+  return basePath.endsWith("/") ? basePath : `${basePath}/`;
+}
+
 function withBase(path: string) {
-  if (!path) return base;
-  return `${base}${path}/`;
+  const cleanBase = normalizeBase(base);
+
+  if (!path) return cleanBase;
+
+  return `${cleanBase}${path.replace(/^\/+/, "")}/`;
 }
 
 function isActive(path: string) {
   const target = withBase(path);
 
   if (!path) {
-    return currentPath === base || currentPath === base.replace(/\/$/, "");
+    return currentPath === target || currentPath === target.replace(/\/$/, "");
   }
 
   return currentPath.startsWith(target);

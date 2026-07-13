@@ -3,8 +3,13 @@ import { paths } from "../data/paths";
 
 const base = import.meta.env.BASE_URL;
 
+function normalizeBase(basePath: string) {
+  return basePath.endsWith("/") ? basePath : `${basePath}/`;
+}
+
 function withBase(path: string) {
-  return `${base}${path.replace(/^\/+/, "")}/`;
+  const cleanBase = normalizeBase(base);
+  return `${cleanBase}${path.replace(/^\/+/, "")}/`;
 }
 ---
 

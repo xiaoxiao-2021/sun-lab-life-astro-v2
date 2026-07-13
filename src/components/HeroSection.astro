@@ -3,8 +3,16 @@ import DeskPanel from "./DeskPanel.astro";
 import CurrentFocus from "./CurrentFocus.astro";
 
 const base = import.meta.env.BASE_URL;
----
 
+function normalizeBase(basePath: string) {
+  return basePath.endsWith("/") ? basePath : `${basePath}/`;
+}
+
+function withBase(path: string) {
+  const cleanBase = normalizeBase(base);
+  return `${cleanBase}${path.replace(/^\/+/, "")}/`;
+}
+---
 <main class="hero-section">
   <section class="hero-card">
     <p class="eyebrow">Clinical Medicine · Research · Life</p>
@@ -33,9 +41,9 @@ const base = import.meta.env.BASE_URL;
     </div>
 
     <div class="hero-actions">
-      <a href={`${base}research/`} class="primary-btn">Enter Research</a>
-      <a href={`${base}bioinformatics/`} class="secondary-btn">View Workflow</a>
-    </div>
+  <a href={withBase("research")} class="primary-btn">Enter Research</a>
+  <a href={withBase("bioinformatics")} class="secondary-btn">View Workflow</a>
+</div>
 
     <CurrentFocus />
   </section>
