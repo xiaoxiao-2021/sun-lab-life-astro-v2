@@ -1,37 +1,89 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+
+const base = import.meta.env.BASE_URL;
+
+function normalizeBase(basePath: string) {
+  return basePath.endsWith("/") ? basePath : `${basePath}/`;
+}
+
+function withBase(path: string) {
+  const cleanBase = normalizeBase(base);
+  return `${cleanBase}${path.replace(/^\/+/, "")}/`;
+}
+
+const notes = await getCollection("bioinformatics", ({ data }) => {
+  return data.draft !== true;
+});
+
+const sortedNotes = notes.sort(
+  (a, b) => b.data.date.getTime() - a.data.date.getTime()
+);
+
+const categories = [...new Set(sortedNotes.map((note) => note.data.category))];
 ---
 
 <BaseLayout title="Bioinformatics | Sun's Lab & Life">
   <section class="page-hero">
     <p class="eyebrow">Bioinformatics Workflow</p>
+
     <h1>R & Bioinformatics Notes</h1>
+
     <p>
       这里整理我的生信武器库：差异分析、ssGSEA、Spearman 相关分析、
       可视化、debug 和可复用流程。
     </p>
   </section>
 
-  <section class="content-grid">
-    <div class="info-card">
-      <h2>DEG Analysis</h2>
-      <p>
-        bulk RNA-seq / microarray 差异分析流程、分组设计和结果整理。
-      </p>
+  <section class="bio-category-section">
+    <div class="section-heading">
+      <p>Categories</p>
+      <h2>Workflow Map</h2>
     </div>
 
-    <div class="info-card">
-      <h2>ssGSEA Scoring</h2>
-      <p>
-        免疫相关 signature 单样本打分、组间比较和可视化。
-      </p>
+    <div class="bio-category-grid">
+      {categories.map((category) => (
+        <div class="bio-category-card">
+          <span>{category}</span>
+          <strong>
+            {sortedNotes.filter((note) => note.data.category === category).length}
+            notes
+          </strong>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="bio-notes-section">
+    <div class="section-heading">
+      <p>Notes</p>
+      <h2>Latest Bioinformatics Notes</h2>
     </div>
 
-    <div class="info-card">
-      <h2>Spearman Workflow</h2>
-      <p>
-        基因表达和评分之间的相关性分析、四象限筛选和自动化输出。
-      </p>
+    <div class="bio-note-list">
+      {sortedNotes.map((note) => (
+        <a href={withBase(`bioinformatics/${note.id}`)} class="bio-note-card">
+          <div>
+            <div class="bio-note-meta">
+              <span>{note.data.category}</span>
+              <time>{note.data.date.toLocaleDateString("zh-CN")}</time>
+            </div>
+
+            <h3>{note.data.title}</h3>
+
+            <p>{note.data.description}</p>
+
+            <div class="bio-note-tags">
+              {note.data.tags.map((tag) => (
+                <span>{tag}</span>
+              ))}
+            </div>
+          </div>
+
+          <strong class="bio-note-arrow">→</strong>
+        </a>
+      ))}
     </div>
   </section>
 </BaseLayout>
