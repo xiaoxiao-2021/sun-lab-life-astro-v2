@@ -1,5 +1,4 @@
 ---
-title: "Spearman correlation workflow"
 description: "基因表达量与免疫评分之间的 Spearman 相关性分析流程。"
 date: 2026-07-13
 updated: 2026-07-13
