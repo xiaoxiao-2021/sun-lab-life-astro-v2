@@ -132,7 +132,7 @@ textarea {
 .page-bg {
   min-height: 100vh;
   position: relative;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .page-bg::before {
@@ -1517,4 +1517,108 @@ html[data-theme="day"] .mode-night-only {
     padding: 28px 22px;
     border-radius: 28px;
   }
+}
+/* ============================================================
+   Note page TOC
+   正文右侧目录：跟随正文布局，并在阅读时 sticky
+   ============================================================ */
+
+.note-shell {
+  display: grid;
+  grid-template-columns: minmax(0, 820px) 280px;
+  gap: 32px;
+  align-items: stretch;
+  max-width: 1160px;
+  margin: 28px auto 0;
+}
+
+.note-shell .note-content {
+  margin-top: 0;
+  min-width: 0;
+}
+
+.note-toc {
+  align-self: stretch;
+  min-height: 100%;
+}
+
+.note-toc-card {
+  position: sticky;
+  top: 110px;
+  max-height: calc(100vh - 140px);
+  overflow-y: auto;
+
+  padding: 22px 20px;
+  border-radius: 24px;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-soft);
+  backdrop-filter: blur(20px);
+}
+
+.note-toc-title {
+  margin: 0 0 14px;
+  color: var(--text-muted);
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.note-toc nav {
+  display: grid;
+  gap: 8px;
+}
+
+.note-toc a {
+  display: block;
+  color: var(--text-muted);
+  font-size: 14px;
+  line-height: 1.55;
+  text-decoration: none;
+}
+
+.note-toc a:hover {
+  color: var(--accent);
+}
+
+.note-toc .toc-depth-2 {
+  padding: 7px 10px;
+  border-radius: 12px;
+  font-weight: 850;
+}
+
+.note-toc .toc-depth-3 {
+  padding-left: 20px;
+  font-size: 13px;
+  opacity: 0.86;
+}
+
+.note-content h2,
+.note-content h3 {
+  scroll-margin-top: 120px;
+}
+
+@media (max-width: 1100px) {
+  .note-shell {
+    grid-template-columns: 1fr;
+    max-width: 860px;
+  }
+
+  .note-toc {
+    order: -1;
+    min-height: auto;
+  }
+
+  .note-toc-card {
+    position: static;
+    max-height: none;
+    overflow-y: visible;
+  }
+}
+
+/* 全站顶部导航栏不再跟随滚动 */
+.navbar {
+  position: static !important;
+  top: auto !important;
 }
