@@ -1021,3 +1021,4 @@ target：
 
 - [查看 workflow 项目目录](https://github.com/xiaoxiao-2021/sun-bioinformatics-workflows/tree/main/spearman-correlation)
 - [查看核心 R 脚本](https://github.com/xiaoxiao-2021/sun-bioinformatics-workflows/blob/main/spearman-correlation/R/spearman_correlation_workflow.R)
+- [R function 运行脚本](https://github.com/xiaoxiao-2021/sun-bioinformatics-workflows/blob/main/spearman-correlation/R/run_spearman_workflow.R)
