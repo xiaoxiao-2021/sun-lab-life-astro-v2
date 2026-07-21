@@ -1017,8 +1017,7 @@ target：
 
 ## 八、完整代码
 
-完整 R workflow、参数模板、示例数据与结果导出代码将整理在 GitHub repository 中。
+完整的 R workflow、参数说明与后续示例文件将持续整理在 GitHub repository 中。
 
-```markdown
-[View source code](GitHub repository URL)
-```
+- [查看 workflow 项目目录](https://github.com/xiaoxiao-2021/sun-bioinformatics-workflows/tree/main/spearman-correlation)
+- [查看核心 R 脚本](https://github.com/xiaoxiao-2021/sun-bioinformatics-workflows/blob/main/spearman-correlation/R/spearman_correlation_workflow.R)
